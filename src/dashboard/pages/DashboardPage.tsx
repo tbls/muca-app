@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { logout } from "@/store/auth/authSlice";
+import { client } from "@/supabase/client";
 
 
 const stats = [
@@ -35,6 +36,25 @@ const DashboardPage = () => {
     { label: "Dashboard", path: "/" },
     { label: "Shipping tracker", path: "/shipping-tracker" },
   ];
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await client.auth.signOut();
+      if (error) {
+        console.error("Supabase signOut error:", error.message);
+        alert("No se pudo cerrar sesión. Intenta de nuevo.");
+        return;
+      }
+    } catch (err) {
+      console.error("Unexpected logout error:", err);
+      alert("No se pudo cerrar sesión. Intenta de nuevo.");
+      return;
+    }
+
+    dispatch(logout());
+    navigate("/auth/login");
+    setMobileOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-linear-to-br from-secondary via-background to-white/70 text-foreground">
@@ -70,7 +90,7 @@ const DashboardPage = () => {
           </div>
 
           <div className="hidden md:block">
-            <Button variant="outline" onClick={() => dispatch(logout())}>
+            <Button variant="outline" onClick={handleLogout}>
               Logout
             </Button>
           </div>
@@ -115,10 +135,7 @@ const DashboardPage = () => {
             <Button
               variant="outline"
               className="justify-start"
-              onClick={() => {
-                dispatch(logout());
-                setMobileOpen(false);
-              }}
+              onClick={handleLogout}
             >
               Logout
             </Button>
