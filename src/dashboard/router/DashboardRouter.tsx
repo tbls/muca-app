@@ -5,7 +5,7 @@ import ShippingTrackerRouter from "../../shipping-traker/router/ShippingTrackerR
 const DashboardRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<DashboardPage />} />
+      <Route index element={<DashboardPage />} />
       <Route path="/shipping-tracker/*" element={<ShippingTrackerRouter />} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
