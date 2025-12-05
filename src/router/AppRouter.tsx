@@ -1,8 +1,8 @@
-import AuthRouter from "@/auth/router/AuthRouter";
-import DashboardRouter from "@/dashboard/router/DashboardRouter";
-import type { RootState } from "@/store/auth/store";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router";
+import type { RootState } from "@/store/auth/store";
+import DashboardRouter from "@/dashboard/router/DashboardRouter";
+import AuthRouter from "@/auth/router/AuthRouter";
 
 const AppRouter = () => {
   const { isLogged } = useSelector((state: RootState) => state.auth);
