@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# MucaApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Muca App is a modern web application designed to simplify and centralize the management of high-tech product purchases. Built with performance and usability in mind, Muca App allows users to easily track orders, monitor shipments, view detailed product information, and analyze expenses — all in one place
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Supabase email/password authentication
+- Protected dashboard with stats, quick actions, and responsive navbar
+- Shipping tracker showing purchases as rows on desktop and stacked cards on mobile
+- Reusable shadcn-inspired UI primitives
+- Tailwind v4 setup with theme tokens and animations
 
-## React Compiler
+## Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- React 19 + TypeScript + Vite
+- React Router v7 (Declarative)
+- Redux Toolkit
+- Supabase JS client v2
+- Tailwind CSS v4
+- shadcn-inspired UI primitives (custom)
 
-## Expanding the ESLint configuration
+## Getting started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Install dependencies
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+   ```bash
+   npm install
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. Configure environment variables (create `.env.local`):
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+   ```bash
+   VITE_SUPABASE_URL=your-supabase-url
+   VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Run the dev server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+   ```bash
+   npm run dev
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4. Lint
+
+   ```bash
+   npm run lint
+   ```
+
+5. Build & preview
+
+   ```bash
+   npm run build
+   npm run preview
+   ```
+
+## Project structure
+
+- `src/MucaApp.tsx` — App entry with Router + Redux Provider
+- `src/router/AppRouter.tsx` — Route gating based on Supabase session (login/logout)
+- `src/auth/pages/LoginPage.tsx` — Supabase email/password sign-in
+- `src/dashboard/pages/DashboardPage.tsx` — Authenticated dashboard with responsive navbar and actions
+- `src/shipping-traker/pages/ShipingTrackerPage.tsx` — Responsive purchases list (desktop rows, mobile cards)
+- `src/components/ui/` — UI primitives
+- `src/supabase/client.ts` — Supabase client initialized from env vars
+- `src/store/auth/` — Redux slice for `isLogged` and store setup
